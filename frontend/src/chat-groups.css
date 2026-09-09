@@ -1,0 +1,258 @@
+.chat-mode-tabs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 14px 12px;
+}
+
+.chat-mode-tabs > button:not(.icon-button) {
+  flex: 1;
+  padding: 7px 8px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #999ea7;
+  background: transparent;
+  font-size: 10px;
+}
+
+.chat-mode-tabs > button:not(.icon-button).selected {
+  border-color: #e9654d;
+  color: #e45943;
+  font-weight: 700;
+}
+
+.chat-mode-tabs > .icon-button {
+  width: 28px;
+  height: 28px;
+  color: #6e8cba;
+  background: #edf5fb;
+}
+
+.chat-group-avatar {
+  background: #718eaa;
+}
+
+.chat-leave-button {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 10px;
+}
+
+.chat-group-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-invite-button {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 10px;
+}
+
+.chat-group-invitation-list {
+  display: grid;
+  gap: 7px;
+  padding: 0 14px 12px;
+  border-bottom: 1px solid #edf0f2;
+}
+
+.chat-group-invitation-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #6f747d;
+  font-size: 10px;
+}
+
+.chat-group-invitation-heading span {
+  min-width: 17px;
+  padding: 2px 5px;
+  border-radius: 9px;
+  color: #e45943;
+  background: #fff0ed;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.chat-group-invitation {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid #edf0f2;
+  border-radius: 6px;
+  background: #fbfcfd;
+}
+
+.chat-group-invitation > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.chat-group-invitation strong,
+.chat-group-invitation small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-group-invitation strong {
+  color: #4c5057;
+  font-size: 10px;
+}
+
+.chat-group-invitation small {
+  margin-top: 3px;
+  color: #999ea7;
+  font-size: 9px;
+}
+
+.chat-group-invitation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.chat-group-invitation-actions .text-button {
+  margin: 0;
+  font-size: 9px;
+}
+
+.chat-group-invitation-actions .primary-button {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 9px;
+}
+
+.chat-group-invite-modal {
+  width: min(100%, 460px);
+}
+
+.chat-group-invite-intro {
+  margin: -8px 0 16px;
+  color: #9398a1;
+  font-size: 11px;
+}
+
+.chat-group-invite-candidates {
+  display: grid;
+  gap: 7px;
+  max-height: 360px;
+  overflow: auto;
+}
+
+.chat-group-invite-candidates article {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #edf0f2;
+  border-radius: 6px;
+}
+
+.chat-group-invite-candidates article > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.chat-group-invite-candidates strong,
+.chat-group-invite-candidates small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-group-invite-candidates strong {
+  color: #4a4e56;
+  font-size: 12px;
+}
+
+.chat-group-invite-candidates small {
+  margin-top: 4px;
+  color: #999ea7;
+  font-size: 10px;
+}
+
+.chat-group-invite-candidates .primary-button,
+.chat-group-invite-candidates .outline-button {
+  height: 29px;
+  padding: 0 9px;
+  box-shadow: none;
+  font-size: 10px;
+}
+
+.chat-group-invite-empty {
+  padding: 22px 10px;
+  color: #9ca0a8;
+  background: #fafbfc;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.chat-group-pending {
+  display: grid;
+  gap: 5px;
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid #edf0f2;
+}
+
+.chat-group-pending strong {
+  color: #737780;
+  font-size: 10px;
+}
+
+.chat-group-pending span {
+  color: #a1a5ad;
+  font-size: 10px;
+}
+
+.chat-group-join {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 22px 16px;
+  border-top: 1px solid #edf0f2;
+}
+
+.chat-group-join p {
+  margin: 0;
+  color: #92979f;
+  font-size: 10px;
+}
+
+.chat-group-join .primary-button {
+  height: 34px;
+  flex: 0 0 auto;
+  font-size: 10px;
+}
+
+.chat-group-form select {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #e2e4e8;
+  border-radius: 5px;
+  outline-color: #e9654d;
+  color: #383b42;
+  background: #fff;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .chat-group-join {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .chat-group-header-actions {
+    gap: 5px;
+  }
+}

@@ -1,0 +1,712 @@
+.timeline-view {
+  position: relative;
+  margin-top: 2px;
+}
+
+.timeline-overview {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid #e7e9ed;
+  border-radius: 7px;
+  background: #fafbfc;
+}
+
+.timeline-overview-heading strong,
+.timeline-overview-heading small {
+  display: block;
+}
+
+.timeline-overview-heading strong {
+  color: #4a4f57;
+  font-size: 11px;
+}
+
+.timeline-overview-heading small {
+  margin-top: 4px;
+  color: #a0a5ad;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.timeline-overview-track {
+  position: relative;
+  min-height: 54px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #d9dee3;
+  background:
+    repeating-linear-gradient(to right, transparent 0, transparent calc(25% - 1px), #e2e6ea calc(25% - 1px), #e2e6ea 25%);
+  cursor: crosshair;
+}
+
+.timeline-overview-track::before,
+.timeline-overview-track::after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: #edf0f2;
+  content: '';
+}
+
+.timeline-overview-track::before {
+  top: 18px;
+}
+
+.timeline-overview-track::after {
+  top: 36px;
+}
+
+.timeline-overview-label {
+  position: absolute;
+  bottom: -17px;
+  color: #989ea6;
+  font-size: 9px;
+  transform: translateX(-50%);
+}
+
+.timeline-overview-label:first-of-type {
+  transform: none;
+}
+
+.timeline-overview-label:last-of-type {
+  transform: translateX(-100%);
+}
+
+.timeline-overview-task {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  min-width: 5px;
+  height: 8px;
+  border-radius: 4px;
+  background: #9bc5a5;
+  box-shadow: 0 1px 2px #26352d1a;
+  cursor: pointer;
+}
+
+.timeline-overview-task.point {
+  width: 8px !important;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.timeline-overview-task.urgent {
+  background: #e6ad55;
+}
+
+.timeline-overview-task.expired {
+  background: #bf7c72;
+}
+
+.timeline-overview-task.completed {
+  background: #aeb4bb;
+}
+
+.timeline-now-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 22px 0 8px 88px;
+  padding: 6px 9px;
+  border: 1px solid #dfe4e8;
+  border-radius: 5px;
+  color: #60758e;
+  background: #fff;
+  font-size: 10px;
+}
+
+.timeline-now-button:hover {
+  border-color: #b9c8d6;
+  background: #f6f9fb;
+}
+
+.vertical-timeline-board {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  border: 1px solid #e5e8eb;
+  border-radius: 7px;
+  background: #fff;
+  scrollbar-color: #cbd3da #f5f7f8;
+  scrollbar-width: thin;
+}
+
+.vertical-timeline-board.drop-ready {
+  background: #fffaf8;
+  box-shadow: inset 0 0 0 1px #efb6aa;
+}
+
+.timeline-canvas {
+  position: relative;
+  min-width: 0;
+}
+
+.timeline-grid {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 76px;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to bottom, transparent 0, transparent 95px, #f0f2f4 95px, #f0f2f4 96px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 15px, #f7f8f9 15px, #f7f8f9 16px);
+  background-position: 0 46px, 0 46px;
+}
+
+.timeline-hour-labels {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 76px;
+  border-right: 1px solid #e9ecef;
+  background: #fff;
+  pointer-events: none;
+}
+
+.timeline-hour-labels span {
+  position: absolute;
+  right: 12px;
+  color: #a0a5ad;
+  font-size: 10px;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.timeline-hour-labels span:first-child {
+  transform: none;
+}
+
+.timeline-hour-labels span.major {
+  color: #68717a;
+  font-weight: 700;
+}
+
+.timeline-task-layer {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 76px;
+}
+
+.timeline-view .axis-task {
+  position: absolute;
+  z-index: 2;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 34px 8px 11px;
+  overflow: hidden;
+  border: 1px solid #d9e8dc;
+  border-left: 4px solid #9bc5a5;
+  border-radius: 6px;
+  background: #f8fcf8;
+  box-shadow: 0 3px 10px #25352b0d;
+  cursor: grab;
+}
+
+.timeline-view .axis-task:active {
+  cursor: grabbing;
+}
+
+.timeline-view .axis-task.dragging,
+.timeline-view .axis-task.resizing {
+  will-change: transform, height;
+  contain: layout paint;
+}
+
+.timeline-view .axis-task:hover {
+  z-index: 4;
+  box-shadow: 0 5px 14px #25352b16;
+}
+
+.timeline-view .axis-task.urgent {
+  border-color: #f1c9c1;
+  border-left-color: #e6ad55;
+  background: #fff8ed;
+}
+
+.timeline-view .axis-task.expired {
+  border-color: #e4c9c5;
+  border-left-color: #bf7c72;
+  background: #fff7f6;
+}
+
+.timeline-view .axis-task.completed {
+  border-color: #dfe2e4;
+  border-left-color: #aeb4bb;
+  background: #f5f6f7;
+  opacity: .65;
+}
+
+.timeline-view .axis-task.completed strong {
+  text-decoration: line-through;
+}
+
+.timeline-view .axis-task.point {
+  min-width: 0;
+  height: 28px !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.timeline-view .axis-task.point::before {
+  display: none;
+}
+
+.timeline-view .axis-task.point .axis-point-dot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #9bc5a5;
+  box-shadow: 0 0 0 1px #9bc5a5, 0 2px 5px #25352b1c;
+  transform: translate(-50%, -50%);
+}
+
+.timeline-view .axis-task.point.urgent .axis-point-dot {
+  background: #e6ad55;
+  box-shadow: 0 0 0 1px #e6ad55, 0 2px 5px #6e4c1c1c;
+}
+
+.timeline-view .axis-task.point.expired .axis-point-dot {
+  background: #bf7c72;
+  box-shadow: 0 0 0 1px #bf7c72, 0 2px 5px #6e30291c;
+}
+
+.timeline-view .axis-task.point.completed .axis-point-dot {
+  background: #aeb4bb;
+  box-shadow: 0 0 0 1px #aeb4bb, 0 2px 5px #2530401c;
+}
+
+.timeline-view .axis-task.point .axis-point-label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  display: block;
+  width: max-content;
+  max-width: min(270px, calc(100vw - 190px));
+  min-height: 28px;
+  padding: 4px 30px 4px 14px;
+  border: 1px solid #e2e8e3;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 2px 8px #25352b0d;
+  transform: translateY(-50%);
+}
+
+.timeline-view .axis-task.point .axis-point-label .axis-task-time,
+.timeline-view .axis-task.point .axis-point-label strong,
+.timeline-view .axis-task.point .axis-point-label small {
+  display: block !important;
+}
+
+.timeline-view .axis-task.point .axis-point-label .axis-task-time {
+  margin: 0 0 2px;
+}
+
+.timeline-view .axis-task.point .axis-point-label strong {
+  max-width: 220px;
+}
+
+.timeline-view .axis-task.point .axis-point-label small {
+  margin-top: 2px;
+}
+
+.timeline-view .axis-task.point > .axis-task-time,
+.timeline-view .axis-task.point > strong,
+.timeline-view .axis-task.point > small {
+  display: none !important;
+}
+
+.timeline-view .axis-task.point .check-button {
+  top: 50%;
+  right: 8px;
+  bottom: auto;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+
+.timeline-view .axis-task.point .axis-resize-handle {
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  left: -13px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: ns-resize;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.timeline-view .axis-task.point:hover .axis-resize-handle {
+  opacity: 1;
+}
+
+.axis-task-time {
+  display: block;
+  margin-bottom: 4px;
+  overflow: hidden;
+  color: #e45943;
+  font-size: 10px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.axis-task strong {
+  display: block;
+  overflow: hidden;
+  color: #41444b;
+  font-size: 11px;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.axis-task small {
+  display: block;
+  overflow: hidden;
+  margin-top: 5px;
+  color: #9aa0a6;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.axis-task-duration {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  color: #9f806c;
+  background: #fff;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.axis-task .check-button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 18px;
+  height: 18px;
+}
+
+.axis-point-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  padding: 0;
+  border: 1px solid #e8c0b7;
+  border-radius: 4px;
+  color: #bd6e5d;
+  background: #fff;
+  cursor: pointer;
+  opacity: .88;
+}
+
+.axis-point-toggle:hover,
+.axis-point-toggle:focus-visible {
+  border-color: #e9654d;
+  color: #e45943;
+  background: #fff0ed;
+  outline: none;
+}
+
+.axis-resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  height: 22px;
+  border-radius: 0 0 5px 5px;
+  background: transparent;
+  cursor: ns-resize;
+  opacity: .9;
+}
+
+.axis-resize-handle::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  left: 10px;
+  height: 4px;
+  border-radius: 2px;
+  background: #d89a8b;
+  opacity: .55;
+  transition: .15s;
+}
+
+.axis-task:hover .axis-resize-handle,
+.axis-resize-handle:active {
+  opacity: 1;
+}
+
+.axis-task:hover .axis-resize-handle::after,
+.axis-resize-handle:active::after,
+.axis-task.resizing .axis-resize-handle::after {
+  height: 5px;
+  background: #d77c68;
+  opacity: 1;
+}
+
+.timeline-now {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  left: -8px;
+  height: 2px;
+  background: #6e8cba;
+  pointer-events: none;
+}
+
+.timeline-now::before {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #6e8cba;
+  box-shadow: 0 0 0 1px #6e8cba;
+  content: '';
+}
+
+.timeline-now span {
+  position: absolute;
+  top: -9px;
+  right: 8px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  color: #fff;
+  background: #6e8cba;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.timeline-drop-preview {
+  position: absolute;
+  z-index: 6;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: #e9654d;
+  pointer-events: none;
+}
+
+.timeline-drop-preview::before {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #e9654d;
+  box-shadow: 0 0 0 1px #e9654d;
+  content: '';
+}
+
+.timeline-drop-preview span {
+  position: absolute;
+  top: -22px;
+  left: 8px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: #fff;
+  background: #e9654d;
+  font-size: 9px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+[data-pointer-draggable='true'] {
+  touch-action: none;
+  user-select: none;
+}
+
+.list-task.dragging,
+.todo-task.dragging {
+  position: relative;
+  z-index: 3;
+  opacity: .55;
+  background: #fff4f1;
+  box-shadow: 0 8px 20px #28323d1c;
+}
+
+body.timeline-pointer-dragging {
+  cursor: grabbing;
+}
+
+body.timeline-pointer-dragging * {
+  user-select: none;
+}
+
+body.timeline-resizing,
+body.timeline-resizing * {
+  cursor: ns-resize !important;
+  user-select: none;
+}
+
+body.timeline-pointer-dragging [data-pointer-draggable='true'].dragging {
+  pointer-events: none;
+}
+
+.todo-panel.drop-ready {
+  border-color: #e4a092;
+  background: #fffaf8;
+  box-shadow: inset 0 0 0 1px #efc2b9;
+}
+
+.todo-drop-hint {
+  min-height: 31px;
+  margin: 12px 0 -2px;
+  padding: 8px 10px;
+  border: 1px dashed #e3c1ba;
+  border-radius: 5px;
+  color: #b58d83;
+  background: #fffdfc;
+  font-size: 10px;
+  text-align: center;
+}
+
+.todo-drop-hint.over {
+  border-color: #e9654d;
+  color: #c75543;
+  background: #fff0ed;
+}
+
+.todo-drop-hint.blocked {
+  border-color: #d9dde1;
+  color: #9299a1;
+  background: #f7f8f9;
+}
+
+@media (max-width: 640px) {
+  .timeline-overview {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .timeline-overview-track {
+    margin: 5px 4px 14px;
+  }
+
+  .timeline-now-button {
+    margin-left: 0;
+  }
+
+  .vertical-timeline-board {
+    max-height: 590px !important;
+  }
+
+  .timeline-task-layer,
+  .timeline-grid {
+    left: 64px;
+  }
+
+  .timeline-hour-labels {
+    width: 64px;
+  }
+
+  .timeline-hour-labels span {
+    right: 8px;
+  }
+
+  .timeline-view .axis-task {
+    padding-left: 9px;
+  }
+}
+
+/* Keep the vertical timeline independent from the legacy horizontal view. */
+.timeline-view .vertical-timeline-board {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 !important;
+}
+
+.timeline-view .axis-task.point:not(.duration) {
+  width: var(--timeline-task-width) !important;
+  min-width: 0;
+  min-height: 28px;
+  height: 28px !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.timeline-view .axis-task.point:not(.duration) .check-button {
+  display: grid !important;
+}
+
+.timeline-view .axis-task.point:not(.duration) .axis-resize-handle {
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  left: -13px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: transparent;
+  transform: translateY(-50%) !important;
+}
+
+.timeline-view .axis-task.point .axis-point-label {
+  width: calc(100% - 14px);
+  max-width: calc(100% - 14px);
+}
+
+.timeline-view .axis-task.point .axis-point-label strong {
+  max-width: 100%;
+}
+
+.schedule-midnight-toggle {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2px 0 0 !important;
+  color: #777d85 !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+}
+
+.schedule-midnight-toggle input {
+  width: 16px !important;
+  height: 16px !important;
+  flex: 0 0 16px;
+  accent-color: #e9654d;
+}

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run DDL notification sync every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+Persistent=true
+Unit=ddl-notifications.service
+
+[Install]
+WantedBy=timers.target

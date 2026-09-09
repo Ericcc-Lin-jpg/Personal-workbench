@@ -1,0 +1,16 @@
+[Unit]
+Description=DDL Django web service
+After=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/srv/ddl
+EnvironmentFile=/etc/ddl/ddl.env
+ExecStart=/srv/ddl/.venv/bin/daphne -b 127.0.0.1 -p 8000 ddl_project.asgi:application
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

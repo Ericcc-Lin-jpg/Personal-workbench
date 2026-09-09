@@ -1,0 +1,11 @@
+[Unit]
+Description=DDL notification sync
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/srv/ddl
+EnvironmentFile=/etc/ddl/ddl.env
+ExecStart=/srv/ddl/.venv/bin/python manage.py sync_notifications
